@@ -2,6 +2,7 @@ import shutil
 
 from stable_baselines3.common.evaluation import evaluate_policy
 
+from inputs.input_simulate import simulate_input
 from src.model import get_algorithm
 from src.train import make_env
 from utils.process_IO import load_map_name, create_directory_if_not_exists, load_map
@@ -54,9 +55,11 @@ def print_evaluate(env, model):
     print(f"Mean reward: {mean_reward} +/- {std_reward}")
 
 
-def simulate_command(option: dict = None):
+def simulate_command():
+    option = simulate_input()
     print("detected env options", option)
     _map = load_map(option['map_path'])
+    print("loaded map", _map)
     env = make_env(_map=_map, is_gui=True, truncate=True)
 
     model_path = option['model_path']

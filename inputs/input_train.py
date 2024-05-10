@@ -5,15 +5,15 @@ from utils.utils import get_merge_dictionary
 import torch
 
 User_Train_Input = {
-    'model_name': 'PPO_64x2_15M_5x5',
-    'model_target': 'recur',
-    'map_path': 'maps/all_4X4/map_0.txt',
+    'model_name': 'PPO_64x2_20M_6x6_p0',
+    'model_target': 'models/recur/',
+    'map_path': 'maps/_6x6_empty',
     'map_size': '',
-    'log_target': 'recur/PPO_64x2_15M',
+    'log_target': 'logs/recur/PPO_64x2_20M_6x6_p0',
     'algorithm': {
         'name': 'PPO',
         'hyperparameters': {
-            'total_timesteps': 15_000_000,
+            'total_timesteps': 20_000_000,
             'learning_rate': 0.0001,
             'batch_size': 64,
             'gamma': 0.99,

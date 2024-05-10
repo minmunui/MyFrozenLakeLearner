@@ -1,3 +1,4 @@
+import random
 from typing import List
 import numpy as np
 
@@ -91,10 +92,18 @@ def generate_random_map(n_col, n_row, p):
     _map = []
     while not valid:
         _map = np.random.choice([b'F', b'H'], (n_row, n_col), p=[1 - p, p])
-        start = np.random.choice(range(n_col))
-        goal = np.random.choice(range(n_col))
-        _map[0, start] = b'S'
-        _map[n_row - 1, goal] = b'G'
+        is_mirror = random.randint(0, 1)
+        is_exchange = random.randint(0, 1)
+        if is_mirror:
+            goal = (0 , n_col - 1)
+            start = (n_row - 1, 0)
+        else:
+            goal = (0, 0)
+            start = (n_row - 1, n_col - 1)
+        if is_exchange:
+            goal, start = start, goal
+        _map[start] = b'S'
+        _map[goal] = b'G'
         valid = is_valid(_map.tolist())
 
     return _map.tolist()

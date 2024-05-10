@@ -51,6 +51,7 @@ class FrozenLake(FrozenLakeEnv):
 
     def step(self, a):
         obs, reward, done, truncated, info = super().step(a)
+        # print("step - ", {'current': self.current, 'goal': self.goal, 'map': self.map})
         self.current = (self.s // self.ncol, self.s % self.ncol)
         self.n_step += 1
         if self.truncate and self.n_step >= self.step_limit:
@@ -61,6 +62,7 @@ class FrozenLake(FrozenLakeEnv):
         return {'current': self.current, 'goal': self.goal, 'map': self.map}, reward, done, truncated, info
 
     def reset(self, **kwargs):
+        self.n_step = 0
         if self.random_reset:
             self.desc = np.asarray(generate_random_map(self.ncol, self.nrow, p=self.frozen_prob), dtype='c')
 
@@ -95,7 +97,7 @@ class FrozenLake(FrozenLakeEnv):
                 reward = float(newletter == b"G")
                 return newstate, reward, terminated
 
-            self.map = [True] * self.nrow * self.ncol
+            self.map = [[True] * self.ncol for _ in range(self.nrow)]
 
             for row in range(self.nrow):
                 for col in range(self.ncol):
@@ -106,17 +108,18 @@ class FrozenLake(FrozenLakeEnv):
                         if letter in b"GH":
                             li.append((1.0, s, 0, True))
                             if letter == b'H':
-                                self.map[row * self.ncol + col] = False
+                                self.map[row][col] = False
                         else:
                             li.append((1.0, *update_probability_matrix(row, col, a)))
 
-            reset = super().reset(**kwargs)
+            super().reset(**kwargs)
             self.s = self.current[0] * self.ncol + self.current[1]
-            list_reset = list(reset)
-            list_reset[0] = int(self.s)
-            return tuple(list_reset)
+            # print("reset - ", {'current': self.current, 'goal': self.goal, 'map': self.map})
+            # print("desc", self.desc)
+            # print("P", self.P)
+            return {'current': self.current, 'goal': self.goal, 'map': self.map}, {}
 
         else:
             self.current = self.start
             self.n_step = 0
-            return {'current': self.current, 'goal': self.goal, 'map': self.map}
+            return {'current': self.current, 'goal': self.goal, 'map': self.map}, {}

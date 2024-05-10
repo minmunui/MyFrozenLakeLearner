@@ -60,9 +60,10 @@ def make_env(_map=None, is_gui=False, truncate=False, random_reset=False):
         render_mode = None
 
     _env_setting = env_setting()
+    print("_map", _map)
     if _map is None:
-        generate_random_map(4, 4, 0.5)
-        return FrozenLake(desc=None,
+        map_desc=generate_random_map(4, 4, 0.5)
+        return FrozenLake(desc=map_desc,
                           is_slippery=False,
                           render_mode=render_mode,
                           hole_penalty=_env_setting['hole_penalty'],
@@ -89,6 +90,7 @@ def train_command():
     hyperparameters = env_options['algorithm']['hyperparameters']
 
     _map = load_map(env_options['map_path'])
+    print("loaded map for train", _map)
 
     # make environment
     env = make_env(_map=_map, is_gui=False, random_reset=True)
