@@ -5,8 +5,8 @@ from utils.utils import get_merge_dictionary
 
 User_Simulate_Input = {
     'algorithm': 'PPO',
-    'model_path': 'recur/PPO_64x2_20M_5x5_test.zip',
-    'map_path': 'maps/_5x5_twisted1',
+    'model_path': 'models/recur/PPO_64x2_20M_4x4.zip',
+    'map_path': 'maps/_4x4_empty',
     'map_dir': 'maps/generated/all_4X4',
     'render_fps': 1,
 }

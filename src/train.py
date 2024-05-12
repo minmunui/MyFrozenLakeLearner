@@ -1,7 +1,7 @@
 import gymnasium
 import numpy as np
 
-from envs.env import FrozenLake
+from envs.my_frozen_lake import FrozenLakeEnv
 from inputs.env_setting import env_setting
 from inputs.input_train import train_input
 from src.model import get_algorithm, prune_hyperparameters
@@ -62,25 +62,25 @@ def make_env(_map=None, is_gui=False, truncate=False, random_reset=False):
     _env_setting = env_setting()
     print("_map", _map)
     if _map is None:
-        map_desc=generate_random_map(4, 4, 0.5)
-        return FrozenLake(desc=map_desc,
-                          is_slippery=False,
-                          render_mode=render_mode,
-                          hole_penalty=_env_setting['hole_penalty'],
-                          random_reset=random_reset,
-                          frozen_prob=_env_setting['frozen_prob'],
-                          render_fps=_env_setting['render_fps'],
-                          truncate=truncate)
+        map_desc = generate_random_map(4, 4, 0.8)
+        return FrozenLakeEnv(grid=map_desc,
+                             render_mode=render_mode,
+                             hole_penalty=_env_setting['hole_penalty'],
+                             reset_map=random_reset,
+                             frozen_prob=_env_setting['frozen_prob'],
+                             enable_truncate=truncate,
+                             mirror=_env_setting['mirror']
+                             )
     else:
         map_desc = np.asarray(_map, dtype='c')
-        return FrozenLake(desc=map_desc,
-                          is_slippery=False,
-                          render_mode=render_mode,
-                          hole_penalty=_env_setting['hole_penalty'],
-                          random_reset=random_reset,
-                          frozen_prob=_env_setting['frozen_prob'],
-                          render_fps=_env_setting['render_fps'],
-                          truncate=truncate)
+        return FrozenLakeEnv(grid=map_desc,
+                             render_mode=render_mode,
+                             hole_penalty=_env_setting['hole_penalty'],
+                             reset_map=random_reset,
+                             frozen_prob=_env_setting['frozen_prob'],
+                             enable_truncate=truncate,
+                             mirror=_env_setting['mirror']
+                             )
 
 
 def train_command():

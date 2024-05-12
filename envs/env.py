@@ -1,7 +1,7 @@
 import numpy as np
 from gymnasium import spaces
-from gymnasium.envs.toy_text.frozen_lake import FrozenLakeEnv, LEFT, DOWN, RIGHT, UP
 
+from envs.frozen_lake import FrozenLakeEnv, LEFT, DOWN, RIGHT, UP
 from utils.utils import generate_random_map
 
 

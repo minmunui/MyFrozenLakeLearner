@@ -1,5 +1,7 @@
 import os
 
+import numpy as np
+
 from src.model import trim_extension
 from utils.utils import simplify_key, current_time_for_file
 
@@ -120,4 +122,6 @@ def load_map(map_path: str):
     for line in string_map.split('\n'):
         if line != '':
             map_result.append(line)
+
+    map_result = np.asarray(map_result, dtype='c')
     return map_result

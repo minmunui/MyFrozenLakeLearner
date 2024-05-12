@@ -5,11 +5,11 @@ from utils.utils import get_merge_dictionary
 import torch
 
 User_Train_Input = {
-    'model_name': 'PPO_64x2_20M_6x6_p0',
-    'model_target': 'models/recur/',
-    'map_path': 'maps/_6x6_empty',
+    'model_name': 'PPO_64x2_20M_4x4_p005_mirror',
+    'model_target': 'models/513/',
+    'map_path': 'maps/_4x4_empty',
     'map_size': '',
-    'log_target': 'logs/recur/PPO_64x2_20M_6x6_p0',
+    'log_target': 'logs/513/PPO_64x2_20M_4x4_p005_mirror',
     'algorithm': {
         'name': 'PPO',
         'hyperparameters': {

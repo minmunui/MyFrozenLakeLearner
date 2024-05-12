@@ -55,7 +55,7 @@ def print_evaluate(env, model):
     print(f"Mean reward: {mean_reward} +/- {std_reward}")
 
 
-def simulate_command():
+def simulate_command(iterate : int = 0):
     option = simulate_input()
     print("detected env options", option)
     _map = load_map(option['map_path'])
@@ -69,8 +69,13 @@ def simulate_command():
     loaded_model = get_algorithm(option['algorithm']).load(model_path)
     # evaluate model
 
-    print_evaluate(env=env, model=loaded_model)
-
+    if iterate == 0:
+        print_evaluate(env=env, model=loaded_model)
+    else:
+        print("Simulating")
+        for _ in range(iterate):
+            env.reset()
+            print_evaluate(env=env, model=loaded_model)
 
 def iter_simulate_command(option: dict = None):
     env_options = option

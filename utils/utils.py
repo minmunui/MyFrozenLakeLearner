@@ -80,7 +80,7 @@ def is_valid(board: List[List[str]]) -> bool:
     return False
 
 
-def generate_random_map(n_col, n_row, p):
+def generate_random_map(n_col, n_row, p, shuffle=False):
     """
     This function generates a random map
     :param n_col: number of columns
@@ -91,9 +91,12 @@ def generate_random_map(n_col, n_row, p):
     valid = False
     _map = []
     while not valid:
-        _map = np.random.choice([b'F', b'H'], (n_row, n_col), p=[1 - p, p])
+        _map = np.random.choice([b'F', b'H'], (n_row, n_col), p=[p, 1 - p])
         is_mirror = random.randint(0, 1)
         is_exchange = random.randint(0, 1)
+        if not shuffle:
+            is_mirror = 0
+            is_exchange = 1
         if is_mirror:
             goal = (0 , n_col - 1)
             start = (n_row - 1, 0)
